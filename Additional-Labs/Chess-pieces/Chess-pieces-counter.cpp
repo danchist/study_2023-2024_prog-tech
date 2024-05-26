@@ -128,7 +128,8 @@ int main(){
     std::cin >> name;
 //    std::cout << name;
 
-
+// Вероятно код ниже можно реализовать с помощью switch, но на момент решения я его забыл. Мне бы побыстрее сдать
+// Возможно потом
 
     if (name == "pawn" or name == "Pawn"){
         pawnMoves(x, y, board);

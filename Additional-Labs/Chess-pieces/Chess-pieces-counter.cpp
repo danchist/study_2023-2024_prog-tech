@@ -19,17 +19,17 @@ void rookMoves(int x, int y, int board[n][n]){
 
 void bishopMoves(int x, int y, int board[n][n]){
     for (int i=1; i < n + 1; i++){
-        if (x + i < n and y + i < n){
+        if (x + i <= n and y + i <= n){
             board[x + i][y + i] = 1;
 
         }
-        if (x - i > 0 and y + i > 0){
+        if (x - i >= 0 and y + i >= 0){
             board[x - i][y + i] = 1;
         }
-        if (x + i > 0 and y - i > 0){
+        if (x + i >= 0 and y - i >= 0){
             board[x + i][y - i] = 1;
         }
-        if (x - i > 0 and y - i > 0){
+        if (x - i >= 0 and y - i >= 0){
             board[x - i][y - i] = 1;
         }
     }

@@ -200,23 +200,36 @@ void add_by_ID(node* currNode, int ID) {
 }
 
 void rm_by_name(node* currNode) {
+
+    // Делаем защиту от удаления одной единственной ноды.
+
+    if (currNode->next == NULL) {
+        std::cout<<"\n Seems like there's only one node. You can't delete the only available node.\n";
+        return;
+    }
+
     // спрашиваем название желаемой ноуды
     std::string nehmen;
     std::cout<<"\n Enter the name which you want to delete \n";
     std::cin>>nehmen;
 
+
     // создаём ноду для случая, когда хотим удалить последнюю ноду
     node* checkpoint = currNode;
 
     // идём по нодам, если встретили ноду с таким же именем, то заменяем данные текущей ноды, на
-    // данные следующей. Также после этого пройдёмся по оставшимся нодам и убавим их индексы
+    // данные следующей. В начале запомнили ссылку на след следующеую ноду, удаляем следующую ноду
+    // а ссылкой текущей ноды присваиваем значени ссылки на след следующую.
+    // Также после этого пройдёмся по оставшимся нодам и убавим их индексы
     while (currNode->next != NULL) {
         if (currNode->name == nehmen) {
-            // node* ptr = currNode->next;
+            node* ptr = currNode->next->next;
             currNode->name = currNode->next->name;
             currNode->num = currNode->next->num - 1;
             currNode->val = currNode->next->val;
-            currNode->next = currNode->next->next;
+            delete currNode->next;
+            currNode->next = ptr;
+
 
             while (currNode->next != NULL) {
                 currNode = currNode->next;
@@ -237,10 +250,11 @@ void rm_by_name(node* currNode) {
 
     // не горжусь этим решением. ещё раз проходим по всем нодам, но в этот раз останавливаемся,
     // когда след следующая - последняя нода. В таком случае просто делаем конечной текущую ноду,
-    // на которой остановились
+    // на которой остановились, перед этим удалив следующую ноду
     while (checkpoint->next->next != NULL) {
         checkpoint = checkpoint->next;
     }
+    delete checkpoint->next;
     checkpoint->next = NULL;
     std::cout<<"\n Node deleted succsessfully! \n";
 
